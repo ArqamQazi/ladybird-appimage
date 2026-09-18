@@ -24,3 +24,8 @@ if [ ! -f /etc/ssl/certs/ca-certificates.crt ]; then
 		done
 	fi
 fi
+
+# Point fontconfig to bundled configuration if available inside AppDir
+if [ -d "${APPDIR:-}/etc/fonts" ]; then
+	export FONTCONFIG_PATH="${APPDIR}/etc/fonts"
+fi

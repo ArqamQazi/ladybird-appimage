@@ -24,7 +24,8 @@ if [ -d /opt/ladybird/usr ]; then
 		/opt/ladybird/usr/lib/*          \
 		/opt/ladybird/usr/lib/ladybird/* \
 		/opt/angle/usr/lib/*             \
-		/opt/ladybird/usr/share/*
+		/opt/ladybird/usr/share/*        \
+		/etc/fonts/*
 	unset LD_LIBRARY_PATH
 else
 	quick-sharun \
