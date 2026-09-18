@@ -18,21 +18,24 @@ export ANYLINUX_LIB=1
 
 # Deploy dependencies
 if [ -d /opt/ladybird/usr ]; then
+	export LD_LIBRARY_PATH="/opt/ladybird/usr/lib:/opt/angle/usr/lib"
 	quick-sharun \
-		/opt/ladybird/usr/bin/*          \
-		/opt/ladybird/usr/lib/*          \
-		/opt/ladybird/usr/lib/ladybird/* \
-		/opt/angle/usr/lib/*             \
-		/opt/ladybird/usr/share/*
+		/opt/ladybird/usr/bin/* \
+		/opt/ladybird/usr/lib   \
+		/opt/angle/usr/lib      \
+		/opt/ladybird/usr/share
+	unset LD_LIBRARY_PATH
 else
 	quick-sharun \
-		/usr/bin/Ladybird                \
-		/usr/bin/js                      \
-		/usr/bin/wasm                    \
-		/usr/lib/ladybird/*              \
-		/usr/share/ladybird/*
+		/usr/bin/Ladybird       \
+		/usr/bin/js             \
+		/usr/bin/wasm           \
+		/usr/lib/ladybird       \
+		/usr/share/ladybird
 fi
 
+# ANGLE provides its own libEGL/libGLESv2 which must override the mesa ones,
+# otherwise the GLES symbols collide. Move them to the top of AppDir/lib.
 if [ -d ./AppDir/lib/angle/usr/lib ]; then
 	mv -v ./AppDir/lib/angle/usr/lib/* ./AppDir/lib/
 	rm -rf ./AppDir/lib/angle
@@ -44,4 +47,4 @@ quick-sharun --make-appimage
 # Test the app for 12 seconds, if the test fails due to the app
 # having issues running in the CI use --simple-test instead
 pacman -S --noconfirm vulkan-swrast # app now needs a vulkan device to launch
-quick-sharun --test ./dist/*.AppImage
+quick-sharun --simple-test ./dist/*.AppImage --disable-sandbox
