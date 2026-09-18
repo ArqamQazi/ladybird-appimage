@@ -16,7 +16,7 @@ if [ ! -f /etc/ssl/certs/ca-certificates.crt ]; then
 		  /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 		  /var/lib/ca-certificates/ca-bundle.pem
 		"
-		for c in _$_possible_certs; do
+		for c in $_possible_certs; do
 			if [ -f "$c" ]; then
 				set -- --certificate "$c" "$@"
 				break
