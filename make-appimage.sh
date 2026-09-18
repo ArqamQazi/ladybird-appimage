@@ -20,18 +20,24 @@ export ANYLINUX_LIB=1
 if [ -d /opt/ladybird/usr ]; then
 	export LD_LIBRARY_PATH="/opt/ladybird/usr/lib:/opt/angle/usr/lib"
 	quick-sharun \
-		/opt/ladybird/usr/bin/* \
-		/opt/ladybird/usr/lib   \
-		/opt/angle/usr/lib      \
-		/opt/ladybird/usr/share
+		/opt/ladybird/usr/bin/*          \
+		/opt/ladybird/usr/lib/*          \
+		/opt/ladybird/usr/lib/ladybird/* \
+		/opt/angle/usr/lib/*             \
+		/opt/ladybird/usr/share/*
 	unset LD_LIBRARY_PATH
+
+	# Ensure all share data (site compatibility, Lagom, icons) and libexec helpers are inside AppDir
+	mkdir -p ./AppDir/share ./AppDir/lib/ladybird
+	cp -rL /opt/ladybird/usr/share/. ./AppDir/share/
+	cp -rL /opt/ladybird/usr/lib/ladybird/. ./AppDir/lib/ladybird/
 else
 	quick-sharun \
-		/usr/bin/Ladybird       \
-		/usr/bin/js             \
-		/usr/bin/wasm           \
-		/usr/lib/ladybird       \
-		/usr/share/ladybird
+		/usr/bin/Ladybird                \
+		/usr/bin/js                      \
+		/usr/bin/wasm                    \
+		/usr/lib/ladybird/*              \
+		/usr/share/ladybird/*
 fi
 
 # ANGLE provides its own libEGL/libGLESv2 which must override the mesa ones,
