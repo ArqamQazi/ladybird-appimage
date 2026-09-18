@@ -25,7 +25,7 @@ if [ -d /opt/ladybird/usr ]; then
 		/opt/ladybird/usr/lib/ladybird/* \
 		/opt/angle/usr/lib/*             \
 		/opt/ladybird/usr/share/*        \
-		/etc/fonts/*
+		/etc/fonts
 	unset LD_LIBRARY_PATH
 else
 	quick-sharun \
@@ -33,7 +33,8 @@ else
 		/usr/bin/js                      \
 		/usr/bin/wasm                    \
 		/usr/lib/ladybird/*              \
-		/usr/share/ladybird/*
+		/usr/share/ladybird/*            \
+		/etc/fonts
 fi
 
 # ANGLE provides its own libEGL/libGLESv2 which must override the mesa ones,

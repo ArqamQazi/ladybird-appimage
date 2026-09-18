@@ -28,4 +28,5 @@ fi
 # Point fontconfig to bundled configuration if available inside AppDir
 if [ -d "${APPDIR:-}/etc/fonts" ]; then
 	export FONTCONFIG_PATH="${APPDIR}/etc/fonts"
+	[ -f "${APPDIR}/etc/fonts/fonts.conf" ] && export FONTCONFIG_FILE="${APPDIR}/etc/fonts/fonts.conf"
 fi
