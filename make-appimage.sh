@@ -26,11 +26,6 @@ if [ -d /opt/ladybird/usr ]; then
 		/opt/angle/usr/lib/*             \
 		/opt/ladybird/usr/share/*
 	unset LD_LIBRARY_PATH
-
-	# Ensure all share data (site compatibility, Lagom, icons) and libexec helpers are inside AppDir
-	mkdir -p ./AppDir/share ./AppDir/lib/ladybird
-	cp -rL /opt/ladybird/usr/share/. ./AppDir/share/
-	cp -rL /opt/ladybird/usr/lib/ladybird/. ./AppDir/lib/ladybird/
 else
 	quick-sharun \
 		/usr/bin/Ladybird                \
